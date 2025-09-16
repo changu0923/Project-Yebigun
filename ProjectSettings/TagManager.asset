@@ -14,13 +14,13 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Environment
   - Direct Interactor
   - Weapon
-  - 
-  - 
-  - 
-  - 
+  - Magazine
+  - MagazineSocket
+  - Projectile
+  - Target
   - 
   - 
   - 
