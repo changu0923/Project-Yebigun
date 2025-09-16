@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EnableInputActions: 1
   m_ModelPrefab: {fileID: 0}
   m_ModelParent: {fileID: 0}
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 1079675171}
   m_AnimateModel: 0
   m_ModelSelectTransition: 
   m_ModelDeSelectTransition: 
@@ -1255,6 +1255,8 @@ MonoBehaviour:
   rightHandInteractor: {fileID: 108775930}
   leftHandAttachPoint: {fileID: 1550239983}
   rightHandAttachPoint: {fileID: 133474465}
+  leftHandModelPresent: {fileID: 109434733007680007}
+  rightHandModelPresent: {fileID: 5686134208097864188}
 --- !u!1 &726643316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,7 +2455,7 @@ MonoBehaviour:
   m_EnableInputActions: 1
   m_ModelPrefab: {fileID: 0}
   m_ModelParent: {fileID: 0}
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 1549835617}
   m_AnimateModel: 0
   m_ModelSelectTransition: 
   m_ModelDeSelectTransition: 
