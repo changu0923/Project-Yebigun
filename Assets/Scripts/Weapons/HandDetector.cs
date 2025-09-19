@@ -1,19 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class HandDetector : MonoBehaviour
 {
-    public Action<XRDirectInteractor, bool> OnHandDetected;
+    private bool isDetected = false;
+    [SerializeField] private InteractionLayerMask desiredFilterMask;
+    private InteractionLayerMask getOriginalMask;
+
+    public bool IsDetected { get => isDetected; }
 
     private void OnTriggerEnter(Collider other)
     {
         XRDirectInteractor interactor = other.GetComponent<XRDirectInteractor>();
         if (interactor != null)
-        {
-            OnHandDetected?.Invoke(interactor, true);
+        {            
+            isDetected = true;
+            interactor.interactionLayers &= ~desiredFilterMask;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -21,7 +27,8 @@ public class HandDetector : MonoBehaviour
         XRDirectInteractor interactor = other.GetComponent<XRDirectInteractor>();
         if (interactor != null)
         {
-            OnHandDetected?.Invoke(interactor, false);
+            isDetected = false;
+            interactor.interactionLayers |= desiredFilterMask;
         }
     }
 }

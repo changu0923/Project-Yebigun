@@ -3799,7 +3799,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.33
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1820410739
 MonoBehaviour:
@@ -3813,6 +3813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f39059a9ff9c4b4c9eebdb0228aa5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredFilterMask:
+    m_Bits: 1024
 --- !u!1 &1892745216
 GameObject:
   m_ObjectHideFlags: 0
@@ -4275,7 +4277,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 3072
+    m_Bits: 7168
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -4310,7 +4312,7 @@ MonoBehaviour:
   m_SelectActionTrigger: 1
   m_HideControllerOnSelect: 1
   m_AllowHoveredActivate: 0
-  m_TargetPriorityMode: 0
+  m_TargetPriorityMode: 1
   m_PlayAudioClipOnSelectEntered: 0
   m_AudioClipForOnSelectEntered: {fileID: 0}
   m_PlayAudioClipOnSelectExited: 0
@@ -7089,7 +7091,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531503298037462668}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.00050058414, y: 0.00012014733, z: 0.00009629806}
@@ -7107,12 +7109,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 4991660726805512430}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1024
+    m_Bits: 4096
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
