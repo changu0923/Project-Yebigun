@@ -1260,6 +1260,7 @@ GameObject:
   - component: {fileID: 546216907}
   - component: {fileID: 546216906}
   - component: {fileID: 546216908}
+  - component: {fileID: 546216909}
   m_Layer: 11
   m_Name: Gun
   m_TagString: Untagged
@@ -1477,6 +1478,21 @@ MonoBehaviour:
   rightHandAttachPoint: {fileID: 133474465}
   leftHandModelPresent: {fileID: 109434733007680007}
   rightHandModelPresent: {fileID: 5686134208097864188}
+--- !u!114 &546216909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546216904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f67fe58617cd5a45a737c72349de934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzle: {fileID: 0}
+  ammoType: 5.56
+  RPM: 800
 --- !u!1 &555828111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1671,7 @@ GameObject:
   - component: {fileID: 693504858}
   - component: {fileID: 693504860}
   - component: {fileID: 693504861}
+  - component: {fileID: 693504862}
   m_Layer: 12
   m_Name: Magazine
   m_TagString: Untagged
@@ -1849,6 +1866,22 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   physicsCollider: {fileID: 1769934450}
+--- !u!114 &693504862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693504857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65ad34e8238b8af48a8135982b726157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAmmo: 20
+  ammoType: 5.56
+  bulletPrefab: {fileID: 1955820814865735772, guid: 3990afaa33fdb8c4c929fdb1517a3dca,
+    type: 3}
 --- !u!1 &710499454
 GameObject:
   m_ObjectHideFlags: 0

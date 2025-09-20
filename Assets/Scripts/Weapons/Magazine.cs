@@ -1,21 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
-public class Magazine : XRGrabInteractable
+public class Magazine : MonoBehaviour
 {
-    [SerializeField] Collider physicsCollider;
+    [SerializeField] protected int maxAmmo;
+    protected int currentAmmo;
+    [SerializeField] protected string ammoType;
+    [SerializeField] private GameObject bulletPrefab;
 
-    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    protected bool isEmpty = false;
+
+    public GameObject Bullet { get => bulletPrefab; }
+
+    protected void Awake()
     {
-        physicsCollider.enabled = false;
-        base.OnSelectEntering(args);
+        currentAmmo = maxAmmo;
     }
 
-    protected override void OnSelectExited(SelectExitEventArgs args)
+    public bool Use()
     {
-        physicsCollider.enabled = true;
-        base.OnSelectExited(args);
+        if (currentAmmo <= 0)
+        {
+            isEmpty = true;
+            return false;
+        }
+
+        currentAmmo--;
+        return true;
     }
 }
