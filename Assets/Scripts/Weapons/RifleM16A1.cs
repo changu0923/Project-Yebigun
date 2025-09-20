@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class RifleM16A1 : Rifle
 {
     [SerializeField] float RPM;
+    [SerializeField] Animator chamberAnimator;
 
     public enum FireMode
     {
@@ -64,7 +65,6 @@ public class RifleM16A1 : Rifle
             }
         }
     }
-
     public void OnMagazineRemoved()
     {
         currentMag = null;
@@ -94,6 +94,7 @@ public class RifleM16A1 : Rifle
             chamber = Chamber.Closed;
             dryFire = true;
         }
+        chamberAnimator.SetTrigger("Release");        
     }
     #endregion
 
@@ -119,6 +120,7 @@ public class RifleM16A1 : Rifle
             rb.AddForce(muzzle.forward * 960f, ForceMode.Impulse);
             SFX.Play();
             VFX.SpawnVFX();
+            chamberAnimator.SetTrigger("Shoot");
             ChamberProcessAfterShot();
             return;
         }
@@ -149,6 +151,7 @@ public class RifleM16A1 : Rifle
                 isBoltCatchOn = true;
                 chamber = Chamber.Locked;
                 dryFire = false;
+                chamberAnimator.SetTrigger("Locked");
             }
         }
         else

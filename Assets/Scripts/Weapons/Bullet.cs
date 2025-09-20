@@ -14,7 +14,10 @@ public class Bullet : MonoBehaviour
 
     protected void Update()
     {
-        transform.rotation = Quaternion.LookRotation(rb.velocity);
+        if (rb.velocity != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
+        }
     }
 
     IEnumerator LifeCycle()
