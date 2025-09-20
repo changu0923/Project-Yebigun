@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class RifleM16A1 : Rifle
 {
@@ -20,14 +21,18 @@ public class RifleM16A1 : Rifle
         Locked,
     }
 
-    private FireMode fireMode = FireMode.Safe;
+    private FireMode fireMode = FireMode.Auto;
     private Chamber chamber = Chamber.Closed;
 
     private bool isTriggerOn = false;
     private bool isBoltCatchOn = false;
     private bool dryFire = false;
     private Coroutine process = null;
-    
+
+    [SerializeField] PlayVFX VFX;
+    [SerializeField] PlaySFX SFX;
+
+    #region Trigger Event
     public void OnTriggerButtonEnabled()
     {
         if (process != null)
@@ -42,8 +47,31 @@ public class RifleM16A1 : Rifle
         StopAllCoroutines();
         isTriggerOn = false;
         process = null;
-    } 
+    }
+    #endregion
 
+    #region Socket Event
+    public void OnMagazineInserted(SelectEnterEventArgs args)
+    {
+        IXRSelectInteractable socketItem = args.interactableObject;
+        if (socketItem != null )
+        {
+            GameObject obj = socketItem.transform.gameObject;
+            bool getMag = obj.TryGetComponent<Magazine>(out Magazine mag);
+            if(getMag)
+            {
+                currentMag = mag;
+            }
+        }
+    }
+
+    public void OnMagazineRemoved()
+    {
+        currentMag = null;
+    }
+    #endregion
+
+    #region ChargingHandle Event
     public void ChargingHandlePulled()
     {  
         if(isChamberLoaded)
@@ -67,6 +95,7 @@ public class RifleM16A1 : Rifle
             dryFire = true;
         }
     }
+    #endregion
 
     private void RemoveBulletFromChamber()
     {
@@ -88,6 +117,8 @@ public class RifleM16A1 : Rifle
             GameObject bullet = Instantiate(currentMag.Bullet, muzzle.position, muzzle.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.AddForce(muzzle.forward * 960f, ForceMode.Impulse);
+            SFX.Play();
+            VFX.SpawnVFX();
             ChamberProcessAfterShot();
             return;
         }
@@ -138,6 +169,7 @@ public class RifleM16A1 : Rifle
         if (fireMode == FireMode.Safe)
         {
             //TODO : Safe 사운드효과
+            Debug.Log("Firemode is Safe");
             yield break;
         }
 

@@ -5,8 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MagazineInteractor : XRGrabInteractable
 {
-    [SerializeField] Collider physicsCollider;
-   
+    [SerializeField] Collider physicsCollider;   
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {

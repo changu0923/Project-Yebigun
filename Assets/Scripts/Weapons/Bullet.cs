@@ -8,12 +8,13 @@ public class Bullet : MonoBehaviour
 
     protected void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         StartCoroutine(LifeCycle());
     }
 
     protected void Update()
     {
-        transform.rotation=Quaternion.LookRotation(rb.velocity);
+        transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
 
     IEnumerator LifeCycle()
