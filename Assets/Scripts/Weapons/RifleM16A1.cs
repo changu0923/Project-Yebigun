@@ -94,7 +94,7 @@ public class RifleM16A1 : Rifle
             chamber = Chamber.Closed;
             dryFire = true;
         }
-        chamberAnimator.SetTrigger("Release");        
+        chamberAnimator.SetTrigger("Closed");
     }
     #endregion
 
@@ -120,7 +120,6 @@ public class RifleM16A1 : Rifle
             rb.AddForce(muzzle.forward * 960f, ForceMode.Impulse);
             SFX.Play();
             VFX.SpawnVFX();
-            chamberAnimator.SetTrigger("Shoot");
             ChamberProcessAfterShot();
             return;
         }
@@ -136,6 +135,7 @@ public class RifleM16A1 : Rifle
     private void ChamberProcessAfterShot()
     {
         chamber = Chamber.Opened;
+        chamberAnimator.SetTrigger("Opened");
 
         if (currentMag != null)
         {
@@ -144,6 +144,7 @@ public class RifleM16A1 : Rifle
             {
                 isChamberLoaded = true;
                 chamber = Chamber.Closed;
+                chamberAnimator.SetTrigger("Closed");
             }
             else
             {
@@ -158,7 +159,8 @@ public class RifleM16A1 : Rifle
         {
             isChamberLoaded = false;
             chamber = Chamber.Closed;
-            dryFire = true;
+            chamberAnimator.SetTrigger("Closed");
+            dryFire = false;
         }
     }
 
