@@ -116,8 +116,8 @@ public class RifleM16A1 : Rifle
         {
             // TODO : Ç®¸µ
             GameObject bullet = Instantiate(currentMag.Bullet, muzzle.position, muzzle.rotation);
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(muzzle.forward * 960f, ForceMode.Impulse);
+            Bullet spawnedBullet = bullet.GetComponent<Bullet>();
+            spawnedBullet.Fire();            
             SFX.Play();
             VFX.SpawnVFX();
             ChamberProcessAfterShot();
