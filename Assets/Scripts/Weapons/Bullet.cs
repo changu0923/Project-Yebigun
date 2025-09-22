@@ -26,7 +26,6 @@ public class Bullet : MonoBehaviour
         if(rb.velocity != Vector3.zero)
         {
             rb.rotation = Quaternion.LookRotation(rb.velocity);
-            Debug.DrawRay(transform.position, rb.velocity, Color.red);
         }
     }
 
@@ -34,7 +33,7 @@ public class Bullet : MonoBehaviour
     {
         if(collision.gameObject.layer == targetLayer)
         {
-            Debug.Log($"{collision.gameObject.transform.name}");
+            // Debug.Log($"{collision.gameObject.transform.name}");
         }
     }
     IEnumerator LifeCycle()
