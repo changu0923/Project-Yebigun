@@ -9,10 +9,12 @@ public class Magazine : MonoBehaviour
     protected int currentAmmo;
     [SerializeField] protected string ammoType;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletCasingPrefab;
 
     protected bool isEmpty = false;
 
     public GameObject Bullet { get => bulletPrefab; }
+    public GameObject Casing { get => bulletCasingPrefab; }
 
     protected void Awake()
     {

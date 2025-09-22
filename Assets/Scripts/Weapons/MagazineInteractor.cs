@@ -8,10 +8,6 @@ public class MagazineInteractor : XRGrabInteractable
 {
     [SerializeField] Collider physicsCollider;
     [SerializeField] GameObject leftHandPresent;
-    [SerializeField] Transform socketAttachTransform;
-    [SerializeField] Transform handAttachTransform;
-
-    public Transform SocketAttachTransform { get => socketAttachTransform; }
 
     public void HandPresent(bool bValue)
     {

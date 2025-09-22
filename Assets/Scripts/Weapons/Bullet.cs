@@ -8,17 +8,18 @@ public class Bullet : MonoBehaviour
     protected Rigidbody rb;
     private LayerMask targetLayer;
 
+
     protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
         targetLayer = LayerMask.NameToLayer("Target");
-        StartCoroutine(LifeCycle());
     }
 
     public void Fire()
     {
         Vector3 dir = transform.forward;
         rb.AddForce(dir * 960f, ForceMode.Impulse);
+        StartCoroutine(LifeCycle());
     }
     
     protected void FixedUpdate()

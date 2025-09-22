@@ -121,6 +121,7 @@ public class RifleM16A1 : Rifle
             SFX.Play();
             VFX.SpawnVFX();
             ChamberProcessAfterShot();
+            EjectCasing();
             return;
         }
 
@@ -162,6 +163,13 @@ public class RifleM16A1 : Rifle
             chamberAnimator.SetTrigger("Closed");
             dryFire = false;
         }
+    }
+
+    private void EjectCasing()
+    {
+        GameObject casing = Instantiate(currentMag.Casing, ejectionPort.position, ejectionPort.rotation);
+        BulletCasing bulletCasing = casing.GetComponent<BulletCasing>();
+        bulletCasing.Eject();
     }
 
     public void BoltCatchPushed()
