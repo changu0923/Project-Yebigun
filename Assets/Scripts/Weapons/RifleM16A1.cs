@@ -9,6 +9,9 @@ public class RifleM16A1 : Rifle
     [SerializeField] float RPM;
     [SerializeField] Animator chamberAnimator;
 
+    private GameObject chamberedBullet;
+    private GameObject chamberedCasing;
+    private GameObject chamberedBulletFull;
     public enum FireMode
     {
         Safe,
@@ -84,7 +87,10 @@ public class RifleM16A1 : Rifle
     {
         if (currentMag != null)
         {
-            isChamberLoaded = GetBulletFromMagazine();              
+            isChamberLoaded = GetBulletFromMagazine();
+            chamberedBullet = currentMag.Bullet;
+            chamberedCasing = currentMag.Casing;
+            chamberedBulletFull = currentMag.BulletFull;
             chamber = Chamber.Closed;
             dryFire = !isChamberLoaded;
         }
@@ -100,8 +106,10 @@ public class RifleM16A1 : Rifle
 
     private void RemoveBulletFromChamber()
     {
-        // TODO : 총알 한발 날리기
+        EjectBullet();
         isChamberLoaded = false;
+        chamberedCasing = null;
+        chamberedBullet = null;
     }
 
     private bool GetBulletFromMagazine()
@@ -115,13 +123,12 @@ public class RifleM16A1 : Rifle
         if (chamber == Chamber.Closed && isChamberLoaded)
         {
             // TODO : 풀링
-            GameObject bullet = Instantiate(currentMag.Bullet, muzzle.position, muzzle.rotation);
+            GameObject bullet = Instantiate(chamberedBullet, muzzle.position, muzzle.rotation);
             Bullet spawnedBullet = bullet.GetComponent<Bullet>();
             spawnedBullet.Fire();            
             SFX.Play();
             VFX.SpawnVFX();
             ChamberProcessAfterShot();
-            EjectCasing();
             return;
         }
 
@@ -136,6 +143,8 @@ public class RifleM16A1 : Rifle
     private void ChamberProcessAfterShot()
     {
         chamber = Chamber.Opened;
+        chamberedBullet = null;
+        EjectCasing();
         chamberAnimator.SetTrigger("Opened");
 
         if (currentMag != null)
@@ -144,6 +153,9 @@ public class RifleM16A1 : Rifle
             if (result)
             {
                 isChamberLoaded = true;
+                chamberedBullet = currentMag.Bullet;
+                chamberedCasing = currentMag.Casing;
+                chamberedBulletFull = currentMag.BulletFull;
                 chamber = Chamber.Closed;
                 chamberAnimator.SetTrigger("Closed");
             }
@@ -167,9 +179,18 @@ public class RifleM16A1 : Rifle
 
     private void EjectCasing()
     {
-        GameObject casing = Instantiate(currentMag.Casing, ejectionPort.position, ejectionPort.rotation);
+        GameObject casing = Instantiate(chamberedCasing, ejectionPort.position, ejectionPort.rotation);
         BulletCasing bulletCasing = casing.GetComponent<BulletCasing>();
         bulletCasing.Eject();
+        chamberedCasing = null;
+    }
+
+    private void EjectBullet()
+    {
+        GameObject bullet = Instantiate(chamberedBulletFull, ejectionPort.position, ejectionPort.rotation);
+        BulletFull fullBullet = bullet.GetComponent<BulletFull>();
+        fullBullet.Eject();
+        chamberedBulletFull = null;
     }
 
     public void BoltCatchPushed()

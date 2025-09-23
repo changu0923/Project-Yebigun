@@ -6,15 +6,19 @@ using UnityEngine;
 public class Magazine : MonoBehaviour
 {
     [SerializeField] protected int maxAmmo;
-    protected int currentAmmo;
+    private int currentAmmo;
     [SerializeField] protected string ammoType;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject bulletCasingPrefab;
+    [SerializeField] private GameObject bulletFullPrefab;
+    [SerializeField] private MagazineFollower magazineFollower;
 
     protected bool isEmpty = false;
 
     public GameObject Bullet { get => bulletPrefab; }
     public GameObject Casing { get => bulletCasingPrefab; }
+    public GameObject BulletFull { get => bulletFullPrefab; }
+    public int CurrentAmmo { get => currentAmmo; }
 
     protected void Awake()
     {
@@ -30,6 +34,7 @@ public class Magazine : MonoBehaviour
         }
 
         currentAmmo--;
+        magazineFollower.Use();
         return true;
     }
 }
