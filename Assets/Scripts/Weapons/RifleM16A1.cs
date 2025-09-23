@@ -28,11 +28,15 @@ public class RifleM16A1 : Rifle
     private FireMode fireMode = FireMode.Auto;
     private Chamber chamber = Chamber.Closed;
 
+    private float[] selectorAngle = new float[3] {90f, 0f, -90f};
+    [SerializeField] Transform selectorTransform;
+
+
     private bool isTriggerOn = false;
     private bool isBoltCatchOn = false;
     private bool dryFire = false;
     private Coroutine process = null;
-
+    
     [SerializeField] PlayVFX VFX;
     [SerializeField] PlaySFX SFX;
 
@@ -196,6 +200,24 @@ public class RifleM16A1 : Rifle
     public void BoltCatchPushed()
     {
         isBoltCatchOn = false;
+    }
+
+    public void ChangeFireSelector()
+    {
+        if (isTriggerOn)
+            return;
+
+        int currentMode = (int)fireMode;
+        int nextMode = (currentMode + 1) % 3;
+        fireMode = (FireMode)nextMode;
+        RotateSelectorAngle();
+    }
+
+    private void RotateSelectorAngle()
+    {
+        int currentFiremode = (int)fireMode;
+        Vector3 desiredRotation = new Vector3(selectorAngle[currentFiremode], 0, -180);
+        selectorTransform.localEulerAngles = desiredRotation;        
     }
 
     IEnumerator FireCoroutine()
