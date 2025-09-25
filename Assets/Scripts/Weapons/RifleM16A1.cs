@@ -25,7 +25,7 @@ public class RifleM16A1 : Rifle
         Locked,
     }
 
-    private FireMode fireMode = FireMode.Auto;
+    private FireMode fireMode = FireMode.Safe;
     private Chamber chamber = Chamber.Closed;
 
     private float[] selectorAngle = new float[3] {90f, 0f, -90f};

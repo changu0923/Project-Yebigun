@@ -22,8 +22,8 @@ TagManager:
   - Projectile
   - Target
   - Grenade
-  - 
-  - 
+  - GrenadePinSocket
+  - GrenadePin
   - 
   - Terrain
   - 
