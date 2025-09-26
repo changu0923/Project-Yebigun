@@ -6,9 +6,11 @@ public class BulletFull : MonoBehaviour
 {
     private Rigidbody rb;
 
-    private void Awake()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     public void Eject()

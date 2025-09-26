@@ -1,6 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -12,6 +11,7 @@ public class RifleM16A1 : Rifle
     private GameObject chamberedBullet;
     private GameObject chamberedCasing;
     private GameObject chamberedBulletFull;
+
     public enum FireMode
     {
         Safe,
@@ -39,6 +39,13 @@ public class RifleM16A1 : Rifle
     
     [SerializeField] PlayVFX VFX;
     [SerializeField] PlaySFX SFX;
+
+    private void ShotsFired()
+    {
+        SFX.Play();
+        VFX.SpawnVFX();
+        OnShotFired?.Invoke();
+    }
 
     #region Trigger Event
     public void OnTriggerButtonEnabled()
@@ -125,14 +132,15 @@ public class RifleM16A1 : Rifle
     private void Shoot()
     {
         if (chamber == Chamber.Closed && isChamberLoaded)
-        {
-            // TODO : Ç®¸µ
-            GameObject bullet = Instantiate(chamberedBullet, muzzle.position, muzzle.rotation);
+        {            
+            GameObject bullet = ObjectPoolManager.Instance.Instantiate("Bullet", chamberedBullet);
+            bullet.transform.position = muzzle.position;
+            bullet.transform.rotation = muzzle.rotation;
+
             Bullet spawnedBullet = bullet.GetComponent<Bullet>();
-            spawnedBullet.Fire();            
-            SFX.Play();
-            VFX.SpawnVFX();
+            spawnedBullet.Fire();
             ChamberProcessAfterShot();
+            ShotsFired();
             return;
         }
 
@@ -183,15 +191,19 @@ public class RifleM16A1 : Rifle
 
     private void EjectCasing()
     {
-        GameObject casing = Instantiate(chamberedCasing, ejectionPort.position, ejectionPort.rotation);
+        GameObject casing = ObjectPoolManager.Instance.Instantiate("Casing", chamberedCasing);
+        casing.transform.position = ejectionPort.position;
+        casing.transform.rotation = ejectionPort.rotation;
         BulletCasing bulletCasing = casing.GetComponent<BulletCasing>();
         bulletCasing.Eject();
         chamberedCasing = null;
     }
 
     private void EjectBullet()
-    {
-        GameObject bullet = Instantiate(chamberedBulletFull, ejectionPort.position, ejectionPort.rotation);
+    {       
+        GameObject bullet = ObjectPoolManager.Instance.Instantiate("BulletFull", chamberedBulletFull);
+        bullet.transform.position = ejectionPort.position;
+        bullet.transform.rotation = ejectionPort.rotation;
         BulletFull fullBullet = bullet.GetComponent<BulletFull>();
         fullBullet.Eject();
         chamberedBulletFull = null;
