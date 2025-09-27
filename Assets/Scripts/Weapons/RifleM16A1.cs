@@ -38,11 +38,20 @@ public class RifleM16A1 : Rifle
     private Coroutine process = null;
     
     [SerializeField] PlayVFX VFX;
-    [SerializeField] PlaySFX SFX;
+
+    [Header("SFX")]
+    [SerializeField] PlaySFX audioShoot;
+    [SerializeField] PlaySFX audioDryfire;
+    [SerializeField] PlaySFX audioSelector;
+    [SerializeField] PlaySFX audioBoltCatch;
+    [SerializeField] PlaySFX audioChargingHandlePull;
+    [SerializeField] PlaySFX audioChargingHandleRelease;
+    [SerializeField] PlaySFX audioMagazineInsert;
+    [SerializeField] PlaySFX audioMagazineEject;
 
     private void ShotsFired()
     {
-        SFX.Play();
+        audioShoot.Play();
         VFX.SpawnVFX();
         OnShotFired?.Invoke();
     }
@@ -82,6 +91,7 @@ public class RifleM16A1 : Rifle
     public void OnMagazineRemoved()
     {
         currentMag = null;
+        audioMagazineEject.Play();
     }
     #endregion
 
@@ -92,6 +102,7 @@ public class RifleM16A1 : Rifle
         {
             RemoveBulletFromChamber();
         }
+        audioChargingHandlePull.Play();
     }
 
     public void ChargingHandleReleased()
@@ -112,6 +123,7 @@ public class RifleM16A1 : Rifle
             dryFire = true;
         }
         chamberAnimator.SetTrigger("Closed");
+        audioChargingHandleRelease.Play();
     }
     #endregion
 
@@ -145,10 +157,9 @@ public class RifleM16A1 : Rifle
         }
 
         if(chamber == Chamber.Closed && !isChamberLoaded && dryFire)
-        {
-            // TODO : °ø°Ý¹ß 
-            Debug.Log("Dry Fire");
+        {  
             dryFire = false;
+            audioDryfire.Play();
         }
     }
 
@@ -211,7 +222,16 @@ public class RifleM16A1 : Rifle
 
     public void BoltCatchPushed()
     {
-        isBoltCatchOn = false;
+        Debug.Log("BoltCatchPushed()");
+
+        if (!isBoltCatchOn)
+            return;
+        else
+        {
+            ChargingHandleReleased();
+            isBoltCatchOn = false;
+        }
+        audioBoltCatch.Play();
     }
 
     public void ChangeFireSelector()
@@ -223,6 +243,7 @@ public class RifleM16A1 : Rifle
         int nextMode = (currentMode + 1) % 3;
         fireMode = (FireMode)nextMode;
         RotateSelectorAngle();
+        audioSelector.Play();
     }
 
     private void RotateSelectorAngle()
