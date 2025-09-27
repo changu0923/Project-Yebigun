@@ -85,6 +85,7 @@ public class RifleM16A1 : Rifle
             if(getMag)
             {
                 currentMag = mag;
+                audioMagazineInsert.Play();
             }
         }
     }
@@ -257,8 +258,6 @@ public class RifleM16A1 : Rifle
     {
         if (fireMode == FireMode.Safe)
         {
-            //TODO : Safe 사운드효과
-            Debug.Log("Firemode is Safe");
             yield break;
         }
 
