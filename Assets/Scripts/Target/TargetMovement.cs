@@ -20,6 +20,8 @@ public class TargetMovement : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        currentState = TargetState.Idle;
+        isMoving = false;
     }
 
     public void MoveFoward()

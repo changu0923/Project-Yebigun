@@ -22,6 +22,7 @@ public class UIHitInfoPanel : MonoBehaviour
 
     private void OnButtonClicked()
     {
+        target.OnResetCalled();
         ResetUI();
     }
 

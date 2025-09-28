@@ -33,10 +33,31 @@ public class Target : MonoBehaviour
         CalculateHitRatio();
     }
 
+    public void OnResetCalled()
+    {
+        currentScore = 0;
+        currentShoot = 0;
+        hitRatio = 0f;
+
+        foreach (GameObject impact in impacts)
+        {
+            if (impact != null)
+            {
+                ObjectPoolManager.Instance.Destroy("BulletHole", impact);
+            }
+        }
+        impacts.Clear();
+    }
+
     public void OnImpact(GameObject gameObject)
     {
         impacts.Add(gameObject);
         gameObject.transform.SetParent(listTransform);
+
+        Vector3 pos = gameObject.transform.localPosition;
+        pos.z = -0.001f;
+        gameObject.transform.localPosition = pos;
+
         currentScore++;
         CalculateHitRatio();
     }    
