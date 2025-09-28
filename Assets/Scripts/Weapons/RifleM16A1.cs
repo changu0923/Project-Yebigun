@@ -223,8 +223,6 @@ public class RifleM16A1 : Rifle
 
     public void BoltCatchPushed()
     {
-        Debug.Log("BoltCatchPushed()");
-
         if (!isBoltCatchOn)
             return;
         else
